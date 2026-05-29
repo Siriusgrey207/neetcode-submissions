@@ -1,0 +1,32 @@
+class Solution {
+    public int characterReplacement(String s, int k) {
+        // Add all the chars in s in a set.
+        int res = 0;
+        Set<Character> charSet = new HashSet<>();
+        for (char c : s.toCharArray()) {
+            charSet.add(c);
+        }
+
+        for (char c : charSet) {
+            int left = 0; 
+            int count = 0;
+
+            for (int right = 0; right < s.length(); right++) {
+                if (s.charAt(right) == c) {
+                    count++;
+                }
+
+                while (right - left + 1 - count > k) {
+                    if (s.charAt(left) == c) {
+                        count--;
+                    }
+                    left++;
+                }
+
+                res = Math.max(right - left + 1, res);
+            }
+        }
+
+        return res;
+    }
+}
