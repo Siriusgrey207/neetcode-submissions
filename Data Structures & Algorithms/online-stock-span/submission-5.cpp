@@ -1,0 +1,23 @@
+class StockSpanner {
+private:
+    std::stack<std::pair<int, int>> stack {};
+
+public:
+    StockSpanner() {}
+    
+    int next(int price) {
+        int span { 1 };
+        while (!stack.empty() && stack.top().first <= price) {
+            span += stack.top().second;
+            stack.pop();
+        }
+        stack.push(std::pair<int, int> { price, span });
+        return span;
+    }
+};
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner* obj = new StockSpanner();
+ * int param_1 = obj->next(price);
+ */
